@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Sledge-Template-Xslate
-version:            0.0.1
+version:            0.0.2
 abstract:           Text::Xslate template system for Sledge
 author:
     - Kenta Sato <kenta.sato.1990@gmail.com>
