@@ -9,7 +9,10 @@ BEGIN {
 {
     package Mock::Pages;
     use Sledge::Pages::Compat;
-    use Sledge::Template::Xslate::TT2Like;
+    use Sledge::Template::Xslate ({
+      syntax => 'TTerse',
+      module => ['Text::Xslate::Bridge::TT2Like'],
+    });
 
     sub create_config { bless {}, 'Mock::Config' }
 

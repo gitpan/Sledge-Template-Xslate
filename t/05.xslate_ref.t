@@ -5,7 +5,10 @@ use lib "t/lib";
 
 package Mock::Pages;
 use parent qw(Sledge::TestPages);
-use Sledge::Template::Xslate::TT2Like;
+use Sledge::Template::Xslate ({
+  syntax => 'TTerse',
+  module => ['Text::Xslate::Bridge::TT2Like'],
+});
 
 my $data = <<DATA
 Hello world!

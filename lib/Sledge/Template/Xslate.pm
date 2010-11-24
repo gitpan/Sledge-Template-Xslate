@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use version;
 
-our $VERSION = qv('0.0.2');
+our $VERSION = qv('0.0.3');
 our $XSLATE_CACHE_DIR_NAME = 'xslate';
 
 use parent qw(Sledge::Template);
@@ -14,30 +14,42 @@ use File::Spec::Memoized;
 use File::Basename;
 use Sledge::Exceptions;
 
+
 sub import {
-    my $class = shift;
+    my($class, $option) = @_;
     my $pkg = caller(0);
+
+    undef $option unless(defined($option) && ref($option) eq 'HASH');
+    
     no strict 'refs';
     *{"$pkg\::create_template"} = sub {
 	my($self, $file) = @_;
-	return $class->new($file, $self);
+	return $class->new($file, $self, $option);
     };
 }
 
 sub new {
-    my($class, $file, $page) = @_;
+    my($class, $file, $page, $option) = @_;
 
     my $config = $page->create_config();
 
+    my $_option = {
+	filename    => $file,
+	path        => ['/', dirname($file)],
+	input_layer => ':encoding(euc-jp)',# Default encoding is euc-jp (not utf-8)
+	suffix      => '.html',
+	type        => 'html',
+	cache       => 1
+    };
+    
+    if(defined($option)){
+	foreach my $key (keys(%$option)){
+	    $_option->{$key} = $option->{$key};
+	}
+    }
+
     my $self = {
-        _options => {
-            filename    => $file,
-	    path        => ['/', dirname($file)],
-	    input_layer => ':encoding(euc-jp)',# Default encoding is euc-jp (not utf-8)
-	    suffix      => '.html',
-            type        => 'html',
-            cache       => 1
-        },
+        _options => $_option,
 	_params  => {
             config  => $config,
             r       => $page->r,
@@ -94,30 +106,19 @@ Sledge::Template::Xslate - Text::Xslate template system for Sledge
 
 =head1 VERSION
 
-This document describes Sledge::Template::Xslate version 0.0.2
+This document describes Sledge::Template::Xslate version 0.0.3
 
 =head1 SYNOPSIS
 
     package MyApp::Pages;
     use strict;
     use Sledge::Pages::Compat;
-    use Sledge::Template::Xslate;
-
-    # ...
-
-    package MyApp::Pages::Foo;
-    use strict;
-    use utf8;
-
-    use parent qw(MyApp::Pages);
-    
-    sub bar{
-        my $self = shift;
-	
-	$self->tmpl->set_option(input_layer => ':utf8');# Please use set_config method if you want to use utf-8.
-
-	# ...
-    }
+    use Sledge::Template::Xslate ({
+      syntax => 'TTerse',
+      module => ['Text::Xslate::Bridge::TT2Like'],
+      input_layer => ':utf8',# Please set input_layer if you want to use utf-8.
+      # You can set more option.
+    });
 
     # ...
 
@@ -139,6 +140,6 @@ modify it under the same terms as Perl itself. See L<perlartistic>.
 =head1 SEE ALSO
 
 L<Sledge::Template>
-L<Text::Xslate> L<Text::Xslate::Syntax::Kolon>
+L<Text::Xslate>
 
 =cut

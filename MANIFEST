@@ -1,8 +1,5 @@
 Changes
 lib/Sledge/Template/Xslate.pm
-lib/Sledge/Template/Xslate/Alloy.pm
-lib/Sledge/Template/Xslate/TT2Like.pm
-lib/Sledge/Template/Xslate/TTerse.pm
 Makefile.PL
 MANIFEST			This list of files
 README
