@@ -1,29 +1,32 @@
---- #YAML:1.0
-name:               Sledge-Template-Xslate
-version:            0.0.3
-abstract:           Text::Xslate template system for Sledge
+---
+abstract: 'Text::Xslate template system for Sledge'
 author:
-    - Kenta Sato <kenta.sato.1990@gmail.com>
-license:            unknown
-distribution_type:  module
-configure_requires:
-    ExtUtils::MakeMaker:  0
+  - 'Kenta Sato  C<< <kenta.sato.1990@gmail.com> >>'
 build_requires:
-    ExtUtils::MakeMaker:  0
-requires:
-    File::Basename:       0
-    File::Spec::Memoized:  0
-    parent:               0
-    Sledge:               0
-    Sledge::TestPages:    0
-    Test::More:           0
-    Text::Xslate:         0
-    version:              0
-no_index:
-    directory:
-        - t
-        - inc
-generated_by:       ExtUtils::MakeMaker version 6.56
+  ExtUtils::MakeMaker: 6.42
+configure_requires:
+  ExtUtils::MakeMaker: 6.42
+distribution_type: module
+generated_by: 'Module::Install version 1.00'
+license: perl
 meta-spec:
-    url:      http://module-build.sourceforge.net/META-spec-v1.4.html
-    version:  1.4
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Sledge-Template-Xslate
+no_index:
+  directory:
+    - inc
+    - t
+    - xt
+requires:
+  File::Basename: 0
+  File::Spec::Memoized: 0
+  Memoize: 0
+  Sledge: 0
+  Text::Xslate: 0
+  parent: 0
+resources:
+  homepage: http://github.com/karupanerura/Sledge-Template-Xslate/tree
+  license: http://dev.perl.org/licenses/
+  repository: git://github.com/karupanerura/Sledge-Template-Xslate.git
+version: 0.0.4

@@ -1,13 +1,9 @@
 ﻿use strict;
-use Test::More;
-
-BEGIN {
-    eval { require Text::Xslate; };
-    plan $@ ? (skip_all => 'no Text::Xslate') : ('no_plan');
-}
+use Test::More tests => 5;
+use Test::Requires qw(Sledge Text::Xslate);
 
 {
-    package Mock::Pages;;
+    package Mock::Pages;
     use Sledge::Pages::Compat;
     use Sledge::Template::Xslate ({
       syntax => 'TTerse',
@@ -22,6 +18,7 @@ BEGIN {
 
     package Dog;
     use parent qw(Class::Accessor);
+
     __PACKAGE__->mk_accessors(qw(bark name));
 
     sub bark { 'Bowwow' }
@@ -46,3 +43,4 @@ BEGIN {
     eval { $page->tmpl->associate_namespace(); };
     isa_ok $@, 'Sledge::Exception::UnimplementedMethod';
 }
+

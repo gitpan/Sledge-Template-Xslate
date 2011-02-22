@@ -1,10 +1,8 @@
 package Sledge::Template::Xslate;
-
 use strict;
 use warnings;
-use version;
 
-our $VERSION = qv('0.0.3');
+our $VERSION = '0.0.4';
 our $XSLATE_CACHE_DIR_NAME = 'xslate';
 
 use parent qw(Sledge::Template);
@@ -13,14 +11,17 @@ use Text::Xslate;
 use File::Spec::Memoized;
 use File::Basename;
 use Sledge::Exceptions;
+use Memoize;
 
+memoize('create_xslate');
+sub create_xslate{ Text::Xslate->new(@_) } # It is memoized!
 
 sub import {
     my($class, $option) = @_;
     my $pkg = caller(0);
 
     undef $option unless(defined($option) && ref($option) eq 'HASH');
-    
+
     no strict 'refs';
     *{"$pkg\::create_template"} = sub {
 	my($self, $file) = @_;
@@ -41,7 +42,7 @@ sub new {
 	type        => 'html',
 	cache       => 1
     };
-    
+
     if(defined($option)){
 	foreach my $key (keys(%$option)){
 	    $_option->{$key} = $option->{$key};
@@ -86,10 +87,10 @@ sub output {
 	    "No template file detected: $input",
 	);
     }
-    
+
     # Create object
-    my $template = Text::Xslate->new($config);
-    
+    my $template = create_xslate($config);
+
     # Render
     return ((ref $input eq 'SCALAR') ?
 	    $template->render_string($$input, $self->{_params}):
@@ -106,7 +107,7 @@ Sledge::Template::Xslate - Text::Xslate template system for Sledge
 
 =head1 VERSION
 
-This document describes Sledge::Template::Xslate version 0.0.3
+This document describes Sledge::Template::Xslate version 0.0.4
 
 =head1 SYNOPSIS
 
@@ -130,16 +131,19 @@ Sledge::Template::Xslate is Text::Xslate template system for Sledge.
 
 Kenta Sato  C<< <kenta.sato.1990@gmail.com> >>
 
-=head1 LICENCE AND COPYRIGHT
-
-Copyright (c) 2010, Kenta Sato C<< <kenta.sato.1990@gmail.com> >>. All rights reserved.
-
-This module is free software; you can redistribute it and/or
-modify it under the same terms as Perl itself. See L<perlartistic>.
-
 =head1 SEE ALSO
 
-L<Sledge::Template>
+Sledge( Repository - http://sourceforge.jp/projects/sledge/ )
+Sledge::Template
 L<Text::Xslate>
 
+=head1 LICENSE
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
 =cut
+
+1;
+__END__
+

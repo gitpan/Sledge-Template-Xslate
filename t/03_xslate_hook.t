@@ -1,5 +1,6 @@
 ﻿use strict;
 use Test::More tests => 5;
+use Test::Requires qw(Sledge Sledge::TestPages Text::Xslate);
 
 use lib 't/lib';
 
@@ -10,8 +11,11 @@ use Sledge::Template::Xslate ({
   module => ['Text::Xslate::Bridge::TT2Like'],
 });
 
-our $TMPL_PATH = "t/template";
-our $CACHE_DIR = "t/cache";
+our $COOKIE_NAME   = "session";
+our $COOKIE_PATH   = "/";
+our $COOKIE_DOMAIN = "localhost";
+our $TMPL_PATH   = "t/template";
+our $CACHE_DIR   = "t/cache";
 
 sub dispatch_name {
     my $self = shift;
