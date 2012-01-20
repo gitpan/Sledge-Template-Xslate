@@ -5,6 +5,8 @@ readme_from 'lib/Sledge/Template/Xslate.pm';
 readme_pod_from 'lib/Sledge/Template/Xslate.pm';
 githubmeta;
 
+# requires '';
+
 tests 't/*.t';
 author_tests 'xt';
 
@@ -13,12 +15,12 @@ requires 'Text::Xslate';
 requires 'File::Spec::Memoized';
 requires 'File::Basename';
 requires 'Memoize';
-requires 'Sledge';
+requires 'Sledge::Template';
+requires 'Sledge::Exceptions';
 
-build_requires 'Test::More';
-build_requires 'Test::Requires';
-build_requires 'Sledge::TestPages';
+test_requires 'Test::More';
+test_requires 'Test::Requires';
+test_requires 'Sledge::TestPages';
 
 auto_set_repository;
-auto_include;
 WriteAll;
