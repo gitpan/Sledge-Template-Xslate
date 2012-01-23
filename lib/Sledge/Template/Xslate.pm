@@ -3,14 +3,14 @@ package Sledge::Template::Xslate;
 use strict;
 use warnings;
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 our $XSLATE_CACHE_DIR_NAME = 'xslate';
 
 use parent qw(Sledge::Template);
 
 use Text::Xslate;
+use File::Basename;
 use File::Spec::Memoized;
-use Sledge::Exceptions;
 use Memoize;
 
 memoize('create_xslate');
@@ -36,7 +36,7 @@ sub new {
 
     my $_option = {
         filename    => $file,
-        path        => ['/', '.'],
+        path        => [dirname($file), '.', '/'],
         input_layer => ':encoding(euc-jp)',# Sledge's default encoding is euc-jp (not utf-8)
         suffix      => '.html',
         type        => 'html',
@@ -97,6 +97,10 @@ sub output {
             $template->render($input, $self->{_params})
 	) or Sledge::Exception::TemplateParseError->throw($template->error);
 }
+
+package Sledge::Exception::TemplateCacheDirNotFound;
+use parent 'Sledge::Exception';
+sub description { 'No template cache directory detected.' }
 
 1;
 __END__

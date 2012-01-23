@@ -36,6 +36,7 @@
       },
       "runtime" : {
          "requires" : {
+            "File::Basename" : 0,
             "File::Spec::Memoized" : 0,
             "Memoize" : 0,
             "Sledge::Exceptions" : 0,
@@ -55,5 +56,5 @@
          "url" : "git://github.com/karupanerura/Sledge-Template-Xslate.git"
       }
    },
-   "version" : "0.05"
+   "version" : "0.06"
 }
