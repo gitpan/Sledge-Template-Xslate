@@ -3,7 +3,7 @@ package Sledge::Template::Xslate;
 use strict;
 use warnings;
 
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 our $XSLATE_CACHE_DIR_NAME = 'xslate';
 
 use parent qw(Sledge::Template);
@@ -71,16 +71,6 @@ sub output {
     my $cache_dir = $self->{'_params'}->{'config'}->can('cache_dir') ?
         $self->{'_params'}->{'config'}->cache_dir : undef;
 
-    # Cache directory check
-    if(defined($cache_dir)){
-        $config->{cache_dir} = File::Spec->catfile($cache_dir, $XSLATE_CACHE_DIR_NAME);
-        Sledge::Exception::TemplateCacheDirNotFound->throw(
-            "No template cache directory detected: $cache_dir"
-            ) unless(-d $config->{cache_dir});
-    } else {
-        $config->{cache} = 0;
-    }
-
     # Template file check
     unless (ref($input) || -e $input) {
         Sledge::Exception::TemplateNotFound->throw(
@@ -98,10 +88,6 @@ sub output {
 	) or Sledge::Exception::TemplateParseError->throw($template->error);
 }
 
-package Sledge::Exception::TemplateCacheDirNotFound;
-use parent 'Sledge::Exception';
-sub description { 'No template cache directory detected.' }
-
 1;
 __END__
 
@@ -111,7 +97,7 @@ Sledge::Template::Xslate - Text::Xslate template system for Sledge
 
 =head1 VERSION
 
-This document describes Sledge::Template::Xslate version 0.0.4
+This document describes Sledge::Template::Xslate version 0.08
 
 =head1 SYNOPSIS
 

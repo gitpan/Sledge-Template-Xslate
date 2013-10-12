@@ -3,15 +3,16 @@ abstract: 'Text::Xslate template system for Sledge'
 author:
   - 'Kenta Sato  C<< <kenta.sato.1990@gmail.com> >>'
 build_requires:
-  ExtUtils::MakeMaker: 6.36
-  Sledge::TestPages: 0
+  Class::Accessor: 0
+  Sledge: 0
   Test::More: 0
-  Test::Requires: 0
 configure_requires:
-  ExtUtils::MakeMaker: 6.36
-distribution_type: module
-dynamic_config: 1
-generated_by: 'Module::Install version 1.04'
+  CPAN::Meta: 0
+  CPAN::Meta::Prereqs: 0
+  Module::Build: 0.38
+  perl: 5.008_001
+dynamic_config: 0
+generated_by: 'Minilla/v0.7.4, CPAN::Meta::Converter version 2.132661'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -19,19 +20,30 @@ meta-spec:
 name: Sledge-Template-Xslate
 no_index:
   directory:
-    - inc
     - t
     - xt
+    - inc
+    - share
+    - eg
+    - examples
+    - author
+    - builder
+provides:
+  Sledge::Template::Xslate:
+    file: lib/Sledge/Template/Xslate.pm
+    version: 0.08
 requires:
-  File::Basename: 0
   File::Spec::Memoized: 0
   Memoize: 0
-  Sledge::Exceptions: 0
-  Sledge::Template: 0
+  Sledge: 0
   Text::Xslate: 0
   parent: 0
 resources:
-  homepage: https://github.com/karupanerura/Sledge-Template-Xslate/tree
-  license: http://dev.perl.org/licenses/
+  bugtracker: https://github.com/karupanerura/Sledge-Template-Xslate/issues
+  homepage: https://github.com/karupanerura/Sledge-Template-Xslate
   repository: git://github.com/karupanerura/Sledge-Template-Xslate.git
-version: 0.07
+version: 0.08
+x_contributors:
+  - 'Kenta Sato <f0913@www.schoolsocial.org>'
+  - 'karupanerura <kenta.sato.1990@gmail.com>'
+  - 'karupanerura <karupa@cpan.org>'
